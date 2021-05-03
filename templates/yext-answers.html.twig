@@ -1,0 +1,19 @@
+
+function initAnswers() {
+      ANSWERS.init({
+      apiKey:  "{{ api_key }}",
+      experienceKey: "{{ experience_key }}",
+      experienceVersion: "{{ experience_version }}",
+      locale: "{{ locale }}",
+      accountId: "{{ account_id }}",
+      onReady: function() {
+      ANSWERS.addComponent("SearchBar", {
+            container: ".search_form",
+            name: "search-bar",
+            redirectUrl: "{{ redirect_url }}",
+            placeholderText: "{{ search_placeholder }}",
+      });
+      },
+      });
+}
+    

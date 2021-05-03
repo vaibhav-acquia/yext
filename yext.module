@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * @file
+ * Contains yext.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function yext_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the site_branding_per_role module.
+    case 'help.page.yext':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Yext Answers is a revolutionary site search product that understands natural language and puts dynamic answers on your website to help consumers convert — right in the search results.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function yext_page_attachments(array &$page) {
+  $answers_bar = \Drupal\block\Entity\Block::load('yextanswersbar');
+  if ($answers_bar) {
+    $config = $answers_bar->get('settings');
+    $yext_api_key = $config['api_key'];
+    $yext_experience_key = $config['experience_key'];
+    $yext_experience_version = $config['experience_version'];
+    $yext_account_id = $config['account_id'];
+    $yext_locale = $config['locale'];
+    $yext_search_placeholder = $config['search_placeholder'];
+    $redirect_url = $config['redirect_url'];
+
+    $page['#attached']['html_head'][] = [
+      [
+        '#attributes' => [
+          'href' => 'https://assets.sitescdn.net/answers/v1.5/answers.css',
+          'rel' => 'stylesheet',
+          'type' => 'text/css',
+        ],
+        '#tag' => 'link',
+      ],
+      'yext_link',
+    ];
+
+    $page['#attached']['html_head'][] = [
+      [
+        '#attributes' => [
+          'src' => 'https://assets.sitescdn.net/answers/v1.5/answers.min.js',
+          'onload' => 'ANSWERS.domReady(initAnswers)',
+          'defer' => TRUE,
+          'async' => TRUE,
+        ],
+        '#tag' => 'script',
+      ],
+      'yext_script1',
+    ];
+    
+    $page['#attached']['html_head'][] = [
+      [
+        '#theme' => 'yext_answers',
+        '#api_key' => $yext_api_key,
+        '#experience_key' => $yext_experience_key,
+        '#experience_version' => $yext_experience_version,
+        '#account_id' => $yext_account_id,
+        '#search_placeholder' => $yext_search_placeholder,
+        '#locale' => $yext_locale,
+        '#redirect_url' => $redirect_url,
+        '#tag' => 'script',
+      ],
+      'yext_script2',
+    ];
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function yext_theme($existing, $type, $theme, $path) {
+  return [
+    'yext_answers' => [
+      'variables' => [
+        'api_key' => NULL,
+        'experience_key' => NULL,
+        'experience_version' => NULL,
+        'account_id' => NULL,
+        'search_placeholder' => NULL,
+        'locale' => NULL,
+        'redirect_url' => NULL,
+      ],
+    ],
+  ];
+}
