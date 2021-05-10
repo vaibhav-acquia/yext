@@ -50,9 +50,29 @@ class YextAnswersBar extends BlockBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function build() {
-    $html = '<div class="search_form"></div>';
+    $html = '<div class="search_form"></div>
+    <script>
+      function initAnswers() {
+        ANSWERS.init({
+        apiKey:  "' . $this->configuration['api_key'] . '",
+        experienceKey: "' . $this->configuration['experience_key'] . '",
+        experienceVersion: "' . $this->configuration['experience_version'] . '",
+        locale: "' . $this->configuration['locale'] . '",
+        accountId: "' . $this->configuration['account_id'] . '",
+        onReady: function() {
+        ANSWERS.addComponent("SearchBar", {
+              container: ".search_form",
+              name: "search-bar",
+              redirectUrl: "' . $this->configuration['redirect_url'] . '",
+              placeholderText: "' . $this->configuration['search_placeholder'] . '",
+        });
+        },
+        });
+      }
+    </script>';
     return [
       '#markup' => $html,
+      '#allowed_tags' => ['script', 'div'],
     ];
   }
 
