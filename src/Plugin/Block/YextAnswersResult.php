@@ -95,4 +95,5 @@ class YextAnswersResult extends BlockBase implements ContainerFactoryPluginInter
       'yext_answers_results' => NULL,
     ];
   }
+  
 }
