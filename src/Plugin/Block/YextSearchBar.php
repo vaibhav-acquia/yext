@@ -9,15 +9,15 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a 'Yext Answers Bar' block.
+ * Provides a 'Yext Search Bar' block.
  *
  * @Block(
- *   id = "yextanswersbar_block",
- *   admin_label = @Translation("Yext Answers Bar"),
+ *   id = "yextsearchbar_block",
+ *   admin_label = @Translation("Yext Search Bar"),
  *
  * )
  */
-class YextAnswersBar extends BlockBase implements ContainerFactoryPluginInterface {
+class YextSearchBar extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * Configuration Factory.

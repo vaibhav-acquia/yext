@@ -9,15 +9,15 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a 'Yext Answers Result' block.
+ * Provides a 'Yext Search Results' block.
  *
  * @Block(
- *   id = "yextanswersresult_block",
- *   admin_label = @Translation("Yext Answers Result"),
+ *   id = "yextsearchresults_block",
+ *   admin_label = @Translation("Yext Search Results"),
  *
  * )
  */
-class YextAnswersResult extends BlockBase implements ContainerFactoryPluginInterface {
+class YextSearchResults extends BlockBase implements ContainerFactoryPluginInterface {
   /**
    * Configuration Factory.
    *
@@ -49,7 +49,7 @@ class YextAnswersResult extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
-    $tag = '<div id="answers-container"></div><script src="' . $this->configuration['yext_answers_results'] . '/iframe.js"></script>';
+    $tag = '<div id="answers-container"></div><script src="' . $this->configuration['yext_search_results'] . '/iframe.js"></script>';
 
     return [
       '#markup' => $tag,
@@ -61,7 +61,7 @@ class YextAnswersResult extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
-    $form['yext_answers_results'] = [
+    $form['yext_search_results'] = [
       '#type' => 'textfield',
       '#description' => $this->t('Enter the url of the Pages Site that you linked to your Answers Experience on the "Answers -> Experiences" tab in your Yext dashboard.'),
       '#title' => $this->t('Yext Answers Page'),
@@ -74,9 +74,9 @@ class YextAnswersResult extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function blockValidate($form, FormStateInterface $form_state) {
-    $yext_answers_results = $form_state->getValue('yext_answers_results');
+    $yext_answers_results = $form_state->getValue('yext_search_results');
     if (!filter_var($yext_answers_results, FILTER_VALIDATE_URL)) {
-      $form_state->setErrorByName('yext_answers_results', $this->t("The entered Yext Answers Page is not a valid url."));
+      $form_state->setErrorByName('yext_search_results', $this->t("The entered Yext Answers Page is not a valid url."));
     }
   }
 
@@ -84,7 +84,7 @@ class YextAnswersResult extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
-    $this->configuration['yext_answers_results'] = $form_state->getValue('yext_answers_results');
+    $this->configuration['yext_search_results'] = $form_state->getValue('yext_search_results');
   }
 
   /**
@@ -92,7 +92,7 @@ class YextAnswersResult extends BlockBase implements ContainerFactoryPluginInter
    */
   public function defaultConfiguration() {
     return [
-      'yext_answers_results' => NULL,
+      'yext_search_results' => NULL,
     ];
   }
   
