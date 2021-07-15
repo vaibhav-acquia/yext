@@ -45,7 +45,7 @@ function yext_page_attachments(array &$page) {
         'src' => 'https://assets.sitescdn.net/answers/v1.5/answers.min.js',
         'onload' => 'ANSWERS.domReady(initAnswers)',
         'defer' => TRUE,
-        'async' => TRUE,
+        'async' => FALSE,
       ],
       '#tag' => 'script',
     ],
