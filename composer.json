@@ -1,0 +1,11 @@
+{
+  "name": "drupal/yext",
+  "type": "drupal-module",
+  "keywords": ["Drupal"],
+  "homepage": "https://www.drupal.org/project/yext",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/yext"
+  },
+  "require": { }
+}
